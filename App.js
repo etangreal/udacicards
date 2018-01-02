@@ -6,6 +6,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { Constants } from 'expo'
+import { TabNav } from './components/Nav'
 import { black } from './utils/colors';
 
 function UdaciStatusBar({backgroundColor, ...props}) {
@@ -21,9 +22,7 @@ export default class App extends React.Component {
     return (
       <View style={styles.app}>
         <UdaciStatusBar backgroundColor={black} barStyle="light-content" />
-        <View style={styles.container}>
-          <Text> UdaciCards </Text>
-        </View>
+        <TabNav />
       </View>
     );
   }

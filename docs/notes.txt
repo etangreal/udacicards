@@ -1,0 +1,12 @@
+  INIT-PROJECT:
+    npm install -g yarn
+    yarn global add create-react-native-app
+
+    create-react-native-app UdaciCards
+    cd UdaciCards
+
+    git init
+    git add.
+    git commit -m "init: create-react-native-app UdaciCards"
+
+    yarn run ios

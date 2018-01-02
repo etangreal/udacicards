@@ -5,17 +5,9 @@ import {
   StatusBar,
   StyleSheet,
 } from 'react-native';
-import { Constants } from 'expo'
+import UdaciStatusBar from './components/UdaciStatusBar'
 import { TabNav } from './components/Nav'
-import { black } from './utils/colors';
-
-function UdaciStatusBar({backgroundColor, ...props}) {
-  return (
-    <View style={{backgroundColor, height: Constants.statusBarHeight}}>
-      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
-    </View>
-  )
-}
+import { black } from './utils/colors'
 
 export default class App extends React.Component {
   render() {

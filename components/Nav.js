@@ -14,13 +14,13 @@ export const TabNav = TabNavigator({
   DeckList: {
     screen: DeckList,
     navigationOptions: {
-      tabBarLabel: 'Decks'
+      tabBarLabel: 'DECKS'
     }
   },
   DeckAdd: {
     screen: DeckAdd,
     navigationOptions: {
-      tabBarLabel: 'New Deck'
+      tabBarLabel: 'NEW DECK'
     }
   }
 }, {

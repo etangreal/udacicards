@@ -2,9 +2,21 @@ import React from 'react';
 import {
   View,
   Text,
+  TouchableOpacity,
   StyleSheet
 } from 'react-native'
 import { white, gray, black } from '../utils/colors'
+
+const Button = ({ onPress, children, style }) => {
+  return (
+    <TouchableOpacity
+      style={[styles.button, style]}
+      onPress={onPress}>
+
+      <Text style={styles.buttonText}>{children}</Text>
+    </TouchableOpacity>
+  )
+}
 
 export default function DeckView(props) {
   const deck = props.navigation.state.params.deck;
@@ -16,8 +28,8 @@ export default function DeckView(props) {
         <Text style={styles.cards}> {deck.questions.length} cards </Text>
       </View>
       <View style={styles.buttons}>
-        <Text> Add Card </Text>
-        <Text> Start Quiz </Text>
+        <Button> Add Card </Button>
+        <Button> Start Quiz </Button>
       </View>
     </View>
   )
@@ -39,11 +51,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  buttons: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   title: {
     color: black,
     fontSize: 25
@@ -51,6 +58,24 @@ const styles = StyleSheet.create({
   cards: {
     color: gray,
     fontSize: 20
-  }
+  },
+  buttons: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button: {
+    backgroundColor: white,
+    padding: 10,
+    borderRadius: 7,
+    height: 45,
+    marginLeft: 40,
+    marginRight: 40,
+  },
+  buttonText: {
+    color: black,
+    fontSize: 22,
+    textAlign: 'center'
+  },
 })
 

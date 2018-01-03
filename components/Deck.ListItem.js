@@ -2,6 +2,7 @@ import React from 'react';
 import {
   View,
   Text,
+  TouchableOpacity,
   StyleSheet
 } from 'react-native'
 import { black, gray } from '../utils/colors'
@@ -9,10 +10,13 @@ import { black, gray } from '../utils/colors'
 export default function DeckListItem({ deck }) {
   return (
     <View key={deck.title} style={styles.listItem}>
-      <View style={styles.listDetail}>
+      <TouchableOpacity
+        style={styles.listItemButton}
+        onPress={() => console.log('ListItem clicked')}>
+
         <Text style={styles.title}> {deck.title} </Text>
         <Text style={styles.cards}> {deck.questions.length} cards </Text>
-      </View>
+      </TouchableOpacity>
     </View>
   )
 }
@@ -22,7 +26,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
   },
-  listDetail: {
+  listItemButton: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',

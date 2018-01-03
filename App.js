@@ -1,21 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react'
 import {
   View,
   Text,
   StatusBar,
   StyleSheet,
-} from 'react-native';
+} from 'react-native'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 import UdaciStatusBar from './components/UdaciStatusBar'
 import { TabNav } from './components/Nav'
+import reducer from './reducers'
 import { black } from './utils/colors'
 
-export default class App extends React.Component {
+export default class App extends Component {
   render() {
     return (
-      <View style={styles.app}>
-        <UdaciStatusBar backgroundColor={black} barStyle="light-content" />
-        <TabNav />
-      </View>
+      <Provider store={createStore(reducer)}>
+        <View style={styles.app}>
+          <UdaciStatusBar backgroundColor={black} barStyle="light-content" />
+          <TabNav />
+        </View>
+      </Provider>
     );
   }
 }

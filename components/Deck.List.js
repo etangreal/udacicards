@@ -5,14 +5,11 @@ import {
   StyleSheet
 } from 'react-native'
 import { connect } from 'react-redux'
+import DeckListItem from './Deck.ListItem'
 
 function DeckList({ decks }) {
   const list = decks.map(deck => {
-    return (
-      <View key={deck.title}>
-        <Text>{deck.title}</Text>
-      </View>
-    )
+    return DeckListItem({ deck })
   })
 
   return <View style={styles.container}>

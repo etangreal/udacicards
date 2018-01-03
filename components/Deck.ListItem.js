@@ -7,12 +7,12 @@ import {
 } from 'react-native'
 import { black, gray } from '../utils/colors'
 
-export default function DeckListItem({ deck }) {
+export default function DeckListItem({ deck, navigation }) {
   return (
     <View key={deck.title} style={styles.listItem}>
       <TouchableOpacity
         style={styles.listItemButton}
-        onPress={() => console.log('ListItem clicked')}>
+        onPress={() => navigation.navigate('DeckView', {deck})}>
 
         <Text style={styles.title}> {deck.title} </Text>
         <Text style={styles.cards}> {deck.questions.length} cards </Text>

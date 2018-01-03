@@ -5,12 +5,14 @@ import {
 } from 'react-native'
 import {
   TabNavigator,
+  StackNavigator,
 } from 'react-navigation'
 import DeckList from './Deck.List'
+import DeckView from './Deck.View'
 import DeckAdd from './Deck.Add'
-import { black, white } from '../utils/colors'
+import { white, gray, black } from '../utils/colors'
 
-export const TabNav = TabNavigator({
+const TabNav = TabNavigator({
   DeckList: {
     screen: DeckList,
     navigationOptions: {
@@ -39,6 +41,21 @@ export const TabNav = TabNavigator({
       },
       shadowRadius: 6,
       shadowOpacity: 1
+    }
+  }
+})
+
+export const Nav = StackNavigator({
+  Home: {
+    screen: TabNav,
+  },
+  DeckView: {
+    screen: DeckView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: black
+      }
     }
   }
 })

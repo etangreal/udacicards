@@ -6,10 +6,11 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import DeckListItem from './Deck.ListItem'
+import { white } from '../utils/colors'
 
-function DeckList({ decks }) {
+function DeckList({ decks, navigation, ...props }) {
   const list = decks.map(deck => {
-    return DeckListItem({ deck })
+    return DeckListItem({ deck, navigation })
   })
 
   return <View style={styles.container}>
@@ -27,7 +28,8 @@ function mapStateToProps(state, props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: white
   }
 })
 

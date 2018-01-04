@@ -18,7 +18,7 @@ export default function DeckView({ navigation }) {
         <Text style={styles.cards}> {deck.questions.length} cards </Text>
       </View>
       <View style={styles.buttons}>
-        <Button> Add Card </Button>
+        <Button onPress={() => navigation.navigate('CardAdd', {deck})}> Add Card </Button>
         <Button onPress={() => navigation.navigate('Quiz', {deck})}> Start Quiz </Button>
       </View>
     </View>

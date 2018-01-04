@@ -9,6 +9,7 @@ import {
 } from 'react-navigation'
 import DeckList from './Deck.List'
 import DeckView from './Deck.View'
+import CardAdd from './Card.Add'
 import DeckAdd from './Deck.Add'
 import Quiz from './Quiz'
 import { white, gray, black } from '../utils/colors'
@@ -59,6 +60,15 @@ export const Nav = StackNavigator({
       }
     }
   },
+  CardAdd: {
+    screen: CardAdd,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: black
+      }
+    }
+  },
   Quiz: {
     screen: Quiz,
     navigationOptions: {
@@ -67,5 +77,5 @@ export const Nav = StackNavigator({
         backgroundColor: black
       }
     }
-  }
+  },
 })

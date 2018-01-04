@@ -8,8 +8,8 @@ import {
 import Button from './Button'
 import { white, gray, black } from '../utils/colors'
 
-export default function DeckView(props) {
-  const deck = props.navigation.state.params.deck;
+export default function DeckView({ navigation }) {
+  const deck = navigation.state.params.deck;
 
   return (
     <View style={styles.container}>
@@ -19,15 +19,15 @@ export default function DeckView(props) {
       </View>
       <View style={styles.buttons}>
         <Button> Add Card </Button>
-        <Button> Start Quiz </Button>
+        <Button onPress={() => navigation.navigate('Quiz', {deck})}> Start Quiz </Button>
       </View>
     </View>
   )
 }
 
-DeckView.navigationOptions = (props) => {
+DeckView.navigationOptions = ({ navigation }) => {
   return {
-    title: props.navigation.state.params.deck.title
+    title: navigation.state.params.deck.title
   }
 }
 

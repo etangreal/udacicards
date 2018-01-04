@@ -10,6 +10,7 @@ import {
 import DeckList from './Deck.List'
 import DeckView from './Deck.View'
 import DeckAdd from './Deck.Add'
+import Quiz from './Quiz'
 import { white, gray, black } from '../utils/colors'
 
 const TabNav = TabNavigator({
@@ -51,6 +52,15 @@ export const Nav = StackNavigator({
   },
   DeckView: {
     screen: DeckView,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: black
+      }
+    }
+  },
+  Quiz: {
+    screen: Quiz,
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {

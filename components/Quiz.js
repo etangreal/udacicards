@@ -15,7 +15,7 @@ const QuizNumber = ({ position = 0, count = 0 }) => {
   )
 }
 
-const Question = ({ questions }) => {
+const Question = ({ question }) => {
   return (
     <View style={styles.questionContainer}>
       <View style={styles.qna}>
@@ -31,17 +31,23 @@ const Question = ({ questions }) => {
 }
 
 export default function Quiz({ navigation }) {
-  const deck = navigation.state.params.deck;
+  const { questions, position } = navigation.state.params.deck;
+  const question = questions[position];
+  const count = questions.length;
 
   return (
     <View style={styles.quizContainer}>
-      <QuizNumber />
-      <Question />
+      <QuizNumber
+        position={position + 1}
+        count={count} />
+      <Question
+        question={question}
+        position={position} />
     </View>
   )
 }
 
-Quiz.navigationOptions = (props) => {
+Quiz.navigationOptions = (/* props */) => {
   return {
     title: 'Quiz'
   }

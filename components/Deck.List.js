@@ -10,9 +10,11 @@ import DeckListItem from './Deck.ListItem'
 import { white } from '../utils/colors'
 
 function DeckList({ decks, navigation, ...props }) {
-  const deckList = decks.map(deck => {
-    return Object.assign({}, deck, {key: deck.title})
-  })
+  const deckList = decks
+    .sort((d1, d2) => d1.title >= d2.title)
+    .map(deck => {
+      return Object.assign({}, deck, {key: deck.title})
+    })
 
   const renderDeckListItem = ({ item: deck }) => {
     return DeckListItem({ deck, navigation })

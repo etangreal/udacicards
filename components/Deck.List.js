@@ -2,6 +2,7 @@ import React from 'react';
 import {
   View,
   Text,
+  FlatList,
   StyleSheet
 } from 'react-native'
 import { connect } from 'react-redux'
@@ -9,12 +10,18 @@ import DeckListItem from './Deck.ListItem'
 import { white } from '../utils/colors'
 
 function DeckList({ decks, navigation, ...props }) {
-  const list = decks.map(deck => {
-    return DeckListItem({ deck, navigation })
+  const deckList = decks.map(deck => {
+    return Object.assign({}, deck, {key: deck.title})
   })
 
+  const renderDeckListItem = ({ item: deck }) => {
+    return DeckListItem({ deck, navigation })
+  }
+
   return <View style={styles.container}>
-    {list}
+    <FlatList
+      data={deckList}
+      renderItem={renderDeckListItem} />
   </View>
 }
 

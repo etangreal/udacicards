@@ -12,7 +12,8 @@ export default function DeckListItem({ deck, navigation }) {
   const cards = count === 1 ? 'card' : 'cards'
 
   return (
-    <View key={deck.title} style={styles.listItem}>
+    //NOTE: not longer requires '<View key={deck.title} ...' since Flatlist uses the 'deck.key' property
+    <View style={styles.listItem}>
       <TouchableOpacity
         style={styles.listItemButton}
         onPress={() => navigation.navigate('DeckView', {deck})}>
@@ -28,6 +29,7 @@ const styles = StyleSheet.create({
   listItem: {
     flex: 1,
     flexDirection: 'row',
+    minHeight: 120
   },
   listItemButton: {
     flex: 1,

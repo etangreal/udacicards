@@ -10,8 +10,9 @@ import Button from './Button'
 import { white, gray, black } from '../utils/colors'
 
 const DeckView = ({ deck, navigation }) => {
-  const count = deck.questions.length;
+  const count = deck.questions.length
   const enabled = { color: !count ? gray : black }
+  const cards = count === 1 ? 'card' : 'cards'
 
   const addCard = () => navigation.navigate('CardAdd', {deck})
   const startQuiz = () => count && navigation.navigate('Quiz', {deck})
@@ -20,7 +21,7 @@ const DeckView = ({ deck, navigation }) => {
     <View style={styles.container}>
       <View style={styles.info}>
         <Text style={styles.title}> {deck.title} </Text>
-        <Text style={styles.cards}> {count} cards </Text>
+        <Text style={styles.cards}> {`${count} ${cards}`} </Text>
       </View>
       <View style={styles.buttons}>
         <Button onPress={addCard}> Add Card </Button>

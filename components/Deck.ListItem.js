@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   View,
   Text,
@@ -8,6 +8,9 @@ import {
 import { black, gray } from '../utils/colors'
 
 export default function DeckListItem({ deck, navigation }) {
+  const count = deck.questions.length
+  const cards = count === 1 ? 'card' : 'cards'
+
   return (
     <View key={deck.title} style={styles.listItem}>
       <TouchableOpacity
@@ -15,7 +18,7 @@ export default function DeckListItem({ deck, navigation }) {
         onPress={() => navigation.navigate('DeckView', {deck})}>
 
         <Text style={styles.title}> {deck.title} </Text>
-        <Text style={styles.cards}> {deck.questions.length} cards </Text>
+        <Text style={styles.cards}> {`${count} ${cards}`} </Text>
       </TouchableOpacity>
     </View>
   )

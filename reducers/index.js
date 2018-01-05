@@ -1,3 +1,6 @@
+import {
+  ADD_DECK
+} from '../actions'
 
 const mockDeckData = {
   JavaScript: {
@@ -6,7 +9,7 @@ const mockDeckData = {
       {
         question: 'What is a closure?',
         answer: 'The combination of a function and the lexical environment within which that function was declared.',
-        isCorrect: false
+        correct: false
       }
     ],
     position: 0
@@ -17,12 +20,12 @@ const mockDeckData = {
       {
         question: 'What is React?',
         answer: 'A library for managing user interfaces',
-        isCorrect: false
+        correct: false
       },
       {
         question: 'Where do you make Ajax requests in React?',
         answer: 'The componentDidMount lifecycle event',
-        isCorrect: false
+        correct: false
       }
     ],
     position: 0
@@ -33,7 +36,7 @@ const mockDeckData = {
       {
         question: 'What is a closure?',
         answer: 'The combination of a function and the lexical environment within which that function was declared.',
-        isCorrect: false
+        correct: false
       }
     ],
     position: 0
@@ -41,5 +44,21 @@ const mockDeckData = {
 }
 
 export default decks = (state = mockDeckData, { type, payload }) => {
-  return state
+  switch (type) {
+    case ADD_DECK:
+      if (payload === '' || state[payload])
+        return state;
+
+      return {
+        ...state,
+        [payload]: {
+          title: payload,
+          questions: [],
+          position: 0,
+        }
+      }
+
+    default:
+      return state
+  }
 }

@@ -1,16 +1,26 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux'
 import {
   View,
   Text,
   TextInput,
   StyleSheet
 } from 'react-native'
+import { addDeck } from '../actions'
 import Button from './Button'
 import { white, gray } from '../utils/colors'
 
-export default class DeckAdd extends PureComponent {
+class DeckAdd extends PureComponent {
   state = {
     title: ''
+  }
+
+  submit = () => {
+    if (this.state.title !== '') {
+      this.props.addDeck(this.state.title)
+      this.setState({title: ''})
+      this.props.goBack()
+    }
   }
 
   render() {
@@ -21,11 +31,20 @@ export default class DeckAdd extends PureComponent {
           style={styles.title}
           onChangeText={(title) => this.setState({title})}
           value={this.state.title} />
-        <Button> Submit </Button>
+        <Button onPress={this.submit}> Submit </Button>
       </View>
     )
   }
 }
+
+function mapDispatchToProps(dispatch, { navigation }) {
+  return {
+    addDeck: (title) => dispatch(addDeck(title)),
+    goBack: () => navigation.goBack()
+  }
+}
+
+export default connect(null, mapDispatchToProps)(DeckAdd)
 
 const styles = StyleSheet.create({
   container: {
@@ -41,7 +60,7 @@ const styles = StyleSheet.create({
     height: 40,
     width: 220,
     textAlign: 'center',
-    margin: 5,
+    marginTop: 10,
     paddingLeft: 10,
     paddingRight: 10,
     borderRadius: 10,

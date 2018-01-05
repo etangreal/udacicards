@@ -10,16 +10,21 @@ import { white, gray, black } from '../utils/colors'
 
 export default function DeckView({ navigation }) {
   const deck = navigation.state.params.deck;
+  const count = deck.questions.length;
+  const enabled = { color: !count ? gray : black }
+
+  const addCard = () => navigation.navigate('CardAdd', {deck})
+  const startQuiz = () => count && navigation.navigate('Quiz', {deck})
 
   return (
     <View style={styles.container}>
       <View style={styles.info}>
         <Text style={styles.title}> {deck.title} </Text>
-        <Text style={styles.cards}> {deck.questions.length} cards </Text>
+        <Text style={styles.cards}> {count} cards </Text>
       </View>
       <View style={styles.buttons}>
-        <Button onPress={() => navigation.navigate('CardAdd', {deck})}> Add Card </Button>
-        <Button onPress={() => navigation.navigate('Quiz', {deck})}> Start Quiz </Button>
+        <Button onPress={addCard}> Add Card </Button>
+        <Button onPress={startQuiz} styleText={enabled}> Start Quiz </Button>
       </View>
     </View>
   )
@@ -55,4 +60,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 })
-

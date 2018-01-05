@@ -6,13 +6,13 @@ import {
 } from 'react-native'
 import { white, black } from '../utils/colors'
 
-export default Button = ({ onPress, children, buttonStyle, buttonTextStyle }) => {
+export default Button = ({ onPress, children, styleButton, styleText }) => {
   return (
     <TouchableOpacity
-      style={[styles.button, buttonStyle]}
+      style={[styles.button, styleButton]}
       onPress={onPress}>
 
-      <Text style={[styles.buttonText, buttonTextStyle]}>{children}</Text>
+      <Text style={[styles.buttonText, styleText]}>{children}</Text>
     </TouchableOpacity>
   )
 }

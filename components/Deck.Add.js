@@ -31,7 +31,7 @@ class DeckAdd extends PureComponent {
           style={styles.title}
           onChangeText={(title) => this.setState({title})}
           value={this.state.title} />
-        <Button onPress={this.submit}> Submit </Button>
+        <Button onPress={this.submit}> Create Deck </Button>
       </View>
     )
   }

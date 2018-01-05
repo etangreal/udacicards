@@ -1,19 +1,44 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
 import {
   View,
   Text,
   TextInput,
   StyleSheet
 } from 'react-native'
+import { addCard } from '../actions'
 import Button from './Button'
-import { white, gray } from '../utils/colors'
+import { white, gray, black } from '../utils/colors'
 
-export default class CardAdd extends PureComponent {
+class CardAdd extends PureComponent {
   state = {
-    question: ''
+    question: '',
+    answer: '',
+  }
+
+  isFilled = () => {
+    return (this.state.question !== '' && this.state.answer !== '')
+  }
+
+  submit = () => {
+    if (!this.isFilled())
+      return;
+
+    this.props.addCard({
+      title: this.props.navigation.state.params.deck.title,
+      question: this.state.question,
+      answer: this.state.answer
+    })
+    this.setState({
+      question: '',
+      answer: ''
+    })
+    this.props.goBack()
   }
 
   render() {
+    const enabled = { color : !this.isFilled() ? gray : black }
+
     return (
       <View style={styles.container}>
         <TextInput
@@ -26,7 +51,7 @@ export default class CardAdd extends PureComponent {
           placeholder="Answer ... "
           onChangeText={(answer) => this.setState({answer})}
           value={this.state.answer} />
-        <Button> Submit </Button>
+        <Button onPress={this.submit} styleText={enabled}> Submit </Button>
       </View>
     )
   }
@@ -37,6 +62,15 @@ CardAdd.navigationOptions = (/* props */) => {
     title: 'Add Card'
   }
 }
+
+function mapDispatchToProps(dispatch, { navigation }) {
+  return {
+    addCard: (deckInfo) => dispatch(addCard(deckInfo)),
+    goBack: () => navigation.goBack()
+  }
+}
+
+export default connect(null, mapDispatchToProps)(CardAdd)
 
 const styles = StyleSheet.create({
   container: {

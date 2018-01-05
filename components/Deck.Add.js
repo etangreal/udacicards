@@ -18,8 +18,8 @@ class DeckAdd extends PureComponent {
   submit = () => {
     if (this.state.title !== '') {
       this.props.addDeck(this.state.title)
+      this.props.navDeck(this.state.title)
       this.setState({title: ''})
-      this.props.goBack()
     }
   }
 
@@ -40,7 +40,10 @@ class DeckAdd extends PureComponent {
 function mapDispatchToProps(dispatch, { navigation }) {
   return {
     addDeck: (title) => dispatch(addDeck(title)),
-    goBack: () => navigation.goBack()
+    navDeck: (title) => {
+      navigation.goBack()
+      navigation.navigate('DeckView', {deck: {title}})
+    }
   }
 }
 

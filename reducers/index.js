@@ -10,10 +10,8 @@ const mockDeckData = {
       {
         question: 'What is a closure?',
         answer: 'The combination of a function and the lexical environment within which that function was declared.',
-        correct: false
       }
     ],
-    position: 0
   },
   React: {
     title: 'React',
@@ -21,15 +19,28 @@ const mockDeckData = {
       {
         question: 'What is React?',
         answer: 'A library for managing user interfaces',
-        correct: false
       },
       {
         question: 'Where do you make Ajax requests in React?',
         answer: 'The componentDidMount lifecycle event',
-        correct: false
-      }
+      },
+      {
+        question: 'Question 3',
+        answer: 'Answer 3',
+      },
+      {
+        question: 'Question 4',
+        answer: 'Answer 4',
+      },
+      {
+        question: 'Question 5',
+        answer: 'Answer 5',
+      },
+      {
+        question: 'Question 6',
+        answer: 'Answer 6',
+      },
     ],
-    position: 0
   },
   Redux: {
     title: 'Redux',
@@ -37,10 +48,8 @@ const mockDeckData = {
       {
         question: 'What is a closure?',
         answer: 'The combination of a function and the lexical environment within which that function was declared.',
-        correct: false
       }
     ],
-    position: 0
   }
 }
 

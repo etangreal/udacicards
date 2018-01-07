@@ -38,6 +38,18 @@ const Question = ({
   )
 }
 
+const Score = ({ correct = 0, total = 0, onRestart, onBack }) => (
+  <View style={styles.container}>
+    <View style={styles.results}>
+      <Text style={{fontSize: 25}}> Score: {correct} / {total} </Text>
+    </View>
+    <View style={styles.buttons}>
+        <Button onPress={onRestart}> Restart Quiz </Button>
+        <Button onPress={onBack}> Back to Deck </Button>
+    </View>
+  </View>
+)
+
 class Quiz extends PureComponent {
   state = {
     isFinish: false,
@@ -64,21 +76,33 @@ class Quiz extends PureComponent {
 
   onInCorrect = () => this.increment(0)
 
-  finish = () => {
-    console.log('End of Quiz: ', this.state.correct, this.props.count)
+  onRestart = () => {
+    this.setState({
+      isFinish: false,
+      showAnswer: false,
+      position: 0,
+      correct: 0
+    })
   }
 
   onFlip = () => {
     this.setState({
-      showAnswer: !this.state.showAnswer
+      showAnswer: true
     })
   }
 
   render() {
     const QnA = this.props.questions[this.state.position];
 
+    if (this.state.isFinish)
+      return <Score
+        correct={this.state.correct}
+        total={this.props.count}
+        onRestart={this.onRestart}
+        onBack={this.props.goBack} />
+
     return (
-      <View style={styles.quizContainer}>
+      <View style={styles.container}>
         <QuizNumber
           position={this.state.position + 1}
           count={this.props.count} />
@@ -111,10 +135,16 @@ function mapStateToProps(state, { navigation }) {
   }
 }
 
-export default connect(mapStateToProps)(Quiz);
+function mapDispatchToProps(dispatch, { navigation }) {
+  return {
+    goBack: () => navigation.goBack()
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Quiz);
 
 const styles = StyleSheet.create({
-  quizContainer: {
+  container: {
     flex: 1,
     backgroundColor: white
   },
@@ -147,4 +177,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  results: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingLeft: 10,
+    paddingRight: 10,
+  }
 })

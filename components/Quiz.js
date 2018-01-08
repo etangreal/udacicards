@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import {
   View,
   Text,
+  Animated,
   StyleSheet
 } from 'react-native'
 import Button from './Button'
@@ -23,14 +24,15 @@ const Question = ({
   showAnswer,
   onFlip,
   onCorrect,
-  onInCorrect
+  onInCorrect,
+  animatedStyle,
 }) => {
   return (
     <View style={styles.questionContainer}>
-      <View style={styles.qna}>
-        <Text style={styles.question}> {question} </Text>
-        <Button onPress={onFlip} style={styles.answer}> {showAnswer ? answer : 'Answer'} </Button>
-      </View>
+      <Animated.View style={[styles.qna, animatedStyle]}>
+        <Text style={styles.qnaText}> {showAnswer ? answer : question} </Text>
+        <Button onPress={onFlip} styleText={styles.qnaButtonText}> {showAnswer ? 'Question' : 'Answer'} </Button>
+      </Animated.View>
       <View style={styles.buttons}>
         <Button onPress={onCorrect}> Correct </Button>
         <Button onPress={onInCorrect}> Incorrect </Button>
@@ -57,6 +59,14 @@ class Quiz extends PureComponent {
     showAnswer: false,
     position: 0,
     correct: 0
+  }
+
+  componentWillMount() {
+    this.animatedValue = new Animated.Value(0)
+    this.animatedInterpolate = this.animatedValue.interpolate({
+      inputRange: [0, 90],
+      outputRange: ['0deg', '90deg']
+    })
   }
 
   increment = (correct) => {
@@ -92,13 +102,27 @@ class Quiz extends PureComponent {
   }
 
   onFlip = () => {
-    this.setState({
-      showAnswer: true
-    })
+    Animated
+      .timing(this.animatedValue, {
+        toValue: 90,
+        duration: 200
+      })
+      .start(() => this.setState({
+        showAnswer: !this.state.showAnswer
+      }, Animated
+      .timing(this.animatedValue, {
+        toValue: 0,
+        duration: 200
+      }).start()))
   }
 
   render() {
     const QnA = this.props.questions[this.state.position];
+    const animatedStyle = {
+      transform: [
+        { rotateY: this.animatedInterpolate }
+      ]
+    }
 
     if (this.state.isFinish)
       return <Score
@@ -118,7 +142,8 @@ class Quiz extends PureComponent {
           showAnswer={this.state.showAnswer}
           onFlip={this.onFlip}
           onCorrect={this.onCorrect}
-          onInCorrect={this.onInCorrect} />
+          onInCorrect={this.onInCorrect}
+          animatedStyle={animatedStyle} />
       </View>
     )
   }
@@ -168,12 +193,12 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
   },
-  question: {
+  qnaText: {
     color: black,
     fontSize: 25,
     textAlign: 'center',
   },
-  answer: {
+  qnaButtonText: {
     color: gray,
     fontSize: 20,
     textAlign: 'center',

@@ -6,6 +6,7 @@ import {
   StyleSheet
 } from 'react-native'
 import Button from './Button'
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 import { white, gray, black } from '../utils/colors'
 
 const QuizNumber = ({ position = 0, count = 0 }) => {
@@ -70,6 +71,11 @@ class Quiz extends PureComponent {
         isFinish: true,
         correct: this.state.correct + correct,
       }, this.finish)
+  }
+
+  finish = () => {
+    clearLocalNotification()
+      .then(setLocalNotification)
   }
 
   onCorrect = () => this.increment(1)

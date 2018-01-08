@@ -12,6 +12,7 @@ import UdaciStatusBar from './components/UdaciStatusBar'
 import { Nav } from './components/Nav'
 import reducers from './reducers'
 import { getDecks } from './actions'
+import { setLocalNotification } from './utils/helpers'
 import { black } from './utils/colors'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -26,6 +27,7 @@ const store = createStore(
 export default class App extends Component {
 
   componentDidMount() {
+    setLocalNotification()
     store.dispatch(getDecks())
   }
 

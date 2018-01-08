@@ -1,4 +1,4 @@
-import mockData from '../utils/mockData'
+import * as cardsAPI from '../utils/cardsAPI'
 
 // ------------------------------------------------------------------------------------------------
 // DECLARATIONS
@@ -13,25 +13,34 @@ export const ADD_CARD = 'ADD_CARD'
 // DECKS / CARDS
 // ------------------------------------------------------------------------------------------------
 
-export const getDecks = () => dispatch => dispatch({
-  type: GET_DECKS,
-  payload: mockData
-})
+export const getDecks = () => dispatch =>
+  cardsAPI
+    .getDecks()
+    .then(decks => dispatch({
+      type: GET_DECKS,
+      payload: decks
+    }))
 
-export const getDeck = title => dispatch => dispatch({
+export const getDeck = title => ({
   type: GET_DECK,
   payload: title
 })
 
-export const addDeck = title => dispatch => dispatch({
-  type: ADD_DECK,
-  payload: title
-})
+export const addDeck = title => dispatch =>
+  cardsAPI
+    .addDeck(title)
+    .then(() => dispatch({
+      type: ADD_DECK,
+      payload: title
+    }))
 
-export const addCard = cardInfo => dispatch => dispatch({
-  type: ADD_CARD,
-  payload: cardInfo
-})
+export const addCard = cardInfo => dispatch =>
+  cardsAPI
+    .addCard(cardInfo)
+    .then(() => dispatch({
+      type: ADD_CARD,
+      payload: cardInfo
+    }))
 
 // ------------------------------------------------------------------------------------------------
 // END

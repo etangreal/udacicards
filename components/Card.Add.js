@@ -29,11 +29,13 @@ class CardAdd extends PureComponent {
       question: this.state.question,
       answer: this.state.answer
     })
-    this.setState({
-      question: '',
-      answer: ''
+    .then(() => {
+      this.props.goBack()
+      this.setState({
+        question: '',
+        answer: ''
+      })
     })
-    this.props.goBack()
   }
 
   render() {

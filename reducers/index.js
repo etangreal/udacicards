@@ -4,10 +4,25 @@ import {
   ADD_DECK,
   ADD_CARD
 } from '../actions'
+import { omit } from '../utils/helpers'
 
-const omit = (omitKey, obj) => Object.keys(obj)
-  .filter((key) => key !== omitKey)
-  .reduce((newObj, key) => Object.assign(newObj, { [key]: obj[key] }), {})
+export const addDeck = (state, title) => ({
+  ...state,
+  [title]: {
+    title,
+    questions: [],
+  }
+})
+
+export const addCard = (state, { title, question, answer }) => ({
+  ...omit(title, state),
+  [title]: Object.assign({}, state[title], {
+    questions: [...state[title].questions, {
+      question: question,
+      answer: answer,
+    }]
+  })
+})
 
 export default decks = (state = {}, { type, payload }) => {
   switch (type) {
@@ -19,32 +34,16 @@ export default decks = (state = {}, { type, payload }) => {
       return state[payload]
 
     case ADD_DECK:
-      if (payload === '' || state[payload])
+      if (!payload || payload === '' || state[payload])
         return state
 
-      return {
-        ...state,
-        [payload]: {
-          title: payload,
-          questions: [],
-          position: 0,
-        }
-      }
+      return addDeck(state, payload)
 
     case ADD_CARD:
       if (!state[payload.title])
         return state
 
-      return {
-        ...omit(payload.title, state),
-        [payload.title]: Object.assign({}, state[payload.title], {
-          questions: [...state[payload.title].questions, {
-            question: payload.question,
-            answer: payload.answer,
-            correct: false
-          }]
-        })
-      }
+      return addCard(state, payload)
 
     default:
       return state

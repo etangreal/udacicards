@@ -16,11 +16,12 @@ class DeckAdd extends PureComponent {
   }
 
   submit = () => {
-    if (this.state.title !== '') {
+    if (this.state.title !== '')
       this.props.addDeck(this.state.title)
-      this.props.navDeck(this.state.title)
-      this.setState({title: ''})
-    }
+        .then(() => {
+          this.props.navDeck(this.state.title)
+          this.setState({title: ''})
+        })
   }
 
   render() {

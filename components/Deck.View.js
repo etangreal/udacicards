@@ -24,7 +24,7 @@ const DeckView = ({ deck, navigation }) => {
         <Text style={styles.cards}> {`${count} ${cards}`} </Text>
       </View>
       <View style={styles.buttons}>
-        <Button onPress={addCard}> Add Card </Button>
+        <Button onPress={addCard}> Create New Question </Button>
         <Button onPress={startQuiz} styleText={enabled}> Start Quiz </Button>
       </View>
     </View>

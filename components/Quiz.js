@@ -31,7 +31,7 @@ const Question = ({
     <View style={styles.questionContainer}>
       <Animated.View style={[styles.qna, animatedStyle]}>
         <Text style={styles.qnaText}> {showAnswer ? answer : question} </Text>
-        <Button onPress={onFlip} styleText={styles.qnaButtonText}> {showAnswer ? 'Question' : 'Answer'} </Button>
+        <Button onPress={onFlip} styleText={styles.qnaButtonText}> {showAnswer ? 'Show Question' : 'Show Answer'} </Button>
       </Animated.View>
       <View style={styles.buttons}>
         <Button onPress={onCorrect}> Correct </Button>

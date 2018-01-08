@@ -20,24 +20,38 @@ export const omit = (omitKey, obj) => Object.keys(obj)
 // ------------------------------------------------------------------------------------------------
 
 export function clearLocalNotification() {
-  return AsyncStorage.removeItem(NOTIFICATION_KEY)
+  return AsyncStorage
+    .removeItem(NOTIFICATION_KEY)
     .then(Notifications.cancelAllScheduledNotificationsAsync)
 }
 
-function createNotification() {
+function notificationMessage() {
   return {
     title: 'Remember to study!',
     body: "👋 don't forget take a quiz today!",
     ios: {
-      sound: true
+      sound: true,
     },
     android: {
       sound: true,
-      priority: 'high',
-      sticky: false,
-      vibrate: true
     }
   }
+}
+
+function createNotification() {
+  let tomorrow = new Date()
+
+  tomorrow.setDate(tomorrow.getDate() + 1)
+  tomorrow.setHours(20)
+  tomorrow.setMinutes(0)
+
+  Notifications
+    .scheduleLocalNotificationAsync(notificationMessage(), {
+      time: tomorrow,
+      repeat: 'day'
+    })
+
+  AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
 }
 
 export function setLocalNotification() {
@@ -45,24 +59,20 @@ export function setLocalNotification() {
     .then(JSON.parse)
     .then(data => {
       if (data === null) {
-        Permissions.askAsync(Permissions.NOTIFICATIONS)
+        Permissions
+          .askAsync(Permissions.NOTIFICATIONS)
           .then(({ status }) => {
             if (status === 'granted') {
-              Notifications.cancelScheduledNotificationAsync()
-
-              let tomorrow = new Date()
-              tomorrow.setDate(tomorrow.getDate() + 1)
-              tomorrow.setHours(20)
-              tomorrow.setMinutes(0)
-
-              Notifications.scheduleLocalNotificationAsync(createNotification(), {
-                time: tomorrow,
-                repeat: 'day'
-              })
+              AsyncStorage
+                .removeItem(NOTIFICATION_KEY)
+                .then(Notifications.cancelAllScheduledNotificationsAsync)
+                .then(createNotification)
+            } else {
+              console.log('Could not set notification. Status: ', status)
             }
-
-            AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
           })
+      } else {
+        // console.log('Notification already set.')
       }
     })
 }

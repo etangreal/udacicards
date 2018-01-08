@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import {
-  View,
+  KeyboardAvoidingView,
   Text,
   TextInput,
   StyleSheet
@@ -26,14 +26,14 @@ class DeckAdd extends PureComponent {
 
   render() {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <Text style={styles.question}> What is the title of your new deck? </Text>
         <TextInput
           style={styles.title}
           onChangeText={(title) => this.setState({title})}
           value={this.state.title} />
         <Button onPress={this.submit}> Create Deck </Button>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }

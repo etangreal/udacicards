@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import {
-  View,
+  KeyboardAvoidingView,
   Text,
   TextInput,
   StyleSheet
@@ -42,7 +42,7 @@ class CardAdd extends PureComponent {
     const enabled = { color : !this.isFilled() ? gray : black }
 
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <TextInput
           style={styles.qna}
           placeholder="Question ... "
@@ -54,7 +54,7 @@ class CardAdd extends PureComponent {
           onChangeText={(answer) => this.setState({answer})}
           value={this.state.answer} />
         <Button onPress={this.submit} styleText={enabled}> Submit </Button>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
